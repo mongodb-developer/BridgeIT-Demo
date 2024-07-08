@@ -17,36 +17,36 @@ This demo sets up a basic question-answering system using Azure OpenAI and LangC
    - Note the endpoint and API key.
 
 2. **Install Azure OpenAI Python SDK**:
-   ```bash
+   ```
    pip install openai
+   ```
 Step 2: Install LangChain
-bash
-Copy code
+
 pip install langchain
+
 Step 3: Create a Simple Document Store
 For this demo, you can use a simple list of documents.
-
-python
-Copy code
+```
 documents = [
     {"title": "Document 1", "text": "Azure OpenAI provides powerful language models."},
     {"title": "Document 2", "text": "LangChain simplifies the integration of language models with data sources."},
     {"title": "Document 3", "text": "Retrieval-Augmented Generation (RAG) enhances the capability of language models by using external data."}
 ]
+```
 Step 4: Implement the Retrieval Component
+
 For simplicity, we'll implement a basic retrieval function that searches for the most relevant document.
 
-python
-Copy code
+```
 def simple_retrieval(query, documents):
     # Basic keyword search
     results = [doc for doc in documents if query.lower() in doc['text'].lower()]
     return results if results else documents
+```
+
 Step 5: Set Up Azure OpenAI Integration
 Use the OpenAI SDK to generate responses.
-
-python
-Copy code
+```
 import openai
 
 openai.api_key = "YOUR_AZURE_OPENAI_API_KEY"
@@ -59,11 +59,11 @@ def generate_response(prompt):
         max_tokens=100
     )
     return response.choices[0].text.strip()
+```
+
 Step 6: Combine Retrieval and Generation
 Integrate the retrieval and generation steps.
-
-python
-Copy code
+```
 def rag_query(query):
     # Step 1: Retrieve relevant documents
     retrieved_docs = simple_retrieval(query, documents)
@@ -73,12 +73,15 @@ def rag_query(query):
     prompt = f"Context: {context}\n\nQuestion: {query}\nAnswer:"
     
     return generate_response(prompt)
-
+```
 # Example query
+```
 query = "What is RAG?"
 response = rag_query(query)
 print(response)
-Running the Demo
+```
+Running the Demo:
+
 Ensure all necessary libraries are installed.
 Replace placeholders with your actual Azure OpenAI API key and endpoint.
 Run the script to see the Retrieval-Augmented Generation in action.
